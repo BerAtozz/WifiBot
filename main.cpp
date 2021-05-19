@@ -9,6 +9,6 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 
-    //test7
+    //Autre version de test entre PC et PC Hugo
 
 }
