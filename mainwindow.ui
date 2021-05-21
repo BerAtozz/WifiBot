@@ -27,6 +27,19 @@
      <string>Connexion</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="forwardButon">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>130</y>
+      <width>211</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Roule ma poule</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

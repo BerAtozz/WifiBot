@@ -68,3 +68,36 @@ void MyRobot::MyTimerSlot() {
     socket->write(DataToSend);
     Mutex.unlock();
 }
+
+short MyRobot::Crc16(QByteArray Adresse_tab , unsigned char Taille_max)
+{
+    unsigned int Crc = 0xFFFF;
+    unsigned int Polynome = 0xA001;
+    unsigned int CptOctet = 0;
+    unsigned int CptBit = 0;
+    unsigned int Parity= 0;
+     Crc = 0xFFFF;
+     Polynome = 0xA001;
+     for ( CptOctet= 0 ; CptOctet < Taille_max ; CptOctet++)
+         {
+         Crc ^= ( Adresse_tab [CptOctet]);
+         for ( CptBit = 0; CptBit <= 7 ; CptBit++)
+             {
+             Parity= Crc;
+             Crc >>= 1;
+             if (Parity%2 == true) Crc ^= Polynome;
+         }
+     }
+    return(Crc);
+}
+
+void MyRobot::Forward(){
+    while(Mutex.tryLock());
+    DataToSend[3]=0xF0;
+    short crc = Crc16(DataToSend,7);
+    DataToSend[7]= crc;
+    qDebug() << crc;
+    DataToSend[8]=crc >> 8;
+    Mutex.unlock();
+    qDebug()<<"Forward command";
+}

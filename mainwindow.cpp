@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <QMessageBox>
+#include <myrobot.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -14,15 +15,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::afficherMessage(){
-    qDebug() << "Salut";
-}
-
-
 
 void MainWindow::on_boutonConnexion_clicked()
 {
-    afficherMessage();
+
+    MyRobot().doConnect();
 }
 
-//valou
+void MainWindow::on_forwardButon_clicked()
+{
+    MyRobot().Forward();
+}
+
