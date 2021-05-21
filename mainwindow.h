@@ -16,6 +16,9 @@ public:
     ~MainWindow();
     void afficherMessage();
 
+private slots:
+    void on_boutonConnexion_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
