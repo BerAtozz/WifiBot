@@ -12,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(ouvrirDialogue()));
+    QObject::connect(ui->boutonConnexion, SIGNAL(clicked()), this, SLOT(ouvrirDialogue()));
 }
 
 void MainWindow::afficherMessage(){
-QMessageBox::information(this, "Titre de la fenêtre", "Bonjour et bienvenueà tous les Zéros !");
+    QMessageBox::information(this, "Titre de la fenêtre", "Bonjour et bienvenueà tous les Zéros !");
 }
 
 
