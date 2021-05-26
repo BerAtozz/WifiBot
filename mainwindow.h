@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <myrobot.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,7 +15,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void afficherMessage();
-
+    MyRobot *GroBot;
 private slots:
     void on_boutonConnexion_clicked();
 

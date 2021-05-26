@@ -8,22 +8,23 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    GroBot = new MyRobot();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
 }
 
 
 void MainWindow::on_boutonConnexion_clicked()
 {
-
-    MyRobot().doConnect();
+    GroBot->doConnect();
 }
 
 void MainWindow::on_forwardButon_clicked()
 {
-    MyRobot().Forward();
+    GroBot->Forward();
 }
 

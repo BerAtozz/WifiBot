@@ -92,12 +92,24 @@ short MyRobot::Crc16(QByteArray Adresse_tab , unsigned char Taille_max)
 }
 
 void MyRobot::Forward(){
-    while(Mutex.tryLock());
-    DataToSend[3]=0xF0;
+while(Mutex.tryLock());
+
+    DataToSend.resize(9);
+    DataToSend[0]=0xFF;
+    DataToSend[1]=0x07;
+    DataToSend[2]=78;
+    DataToSend[3]=0x0;
+    DataToSend[4]=78;
+    DataToSend[5]=0;
+    DataToSend[6]=0x50;
+
     short crc = Crc16(DataToSend,7);
+
     DataToSend[7]= crc;
-    qDebug() << crc;
-    DataToSend[8]=crc >> 8;
+    DataToSend[8]=(crc>>8);
+
     Mutex.unlock();
-    qDebug()<<"Forward command";
+    socket->write(DataToSend);
+
+
 }
