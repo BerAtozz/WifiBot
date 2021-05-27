@@ -17,8 +17,13 @@ public:
     QByteArray DataToSend;
     QByteArray DataReceived;
     QMutex Mutex;
-    short Crc16(QByteArray Adresse_tab , unsigned char Taille_max);
-    void Forward();
+    short crcSoft(unsigned char Adresse_tab , unsigned char Taille_max);
+    quint16 crc16(QByteArray byteArray, int pos);
+    void Forward(int velocity);
+    void Backward(int velocity);
+    void Stop();
+    void Left(int velocity);
+    void Right(int velocity);
 
 signals:
     void updateUI(const QByteArray Data);

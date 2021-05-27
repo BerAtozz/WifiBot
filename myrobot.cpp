@@ -63,53 +63,95 @@ void MyRobot::readyRead() {
 }
 
 void MyRobot::MyTimerSlot() {
-    qDebug() << "Timer...";
+    //qDebug() << "Timer...";
     while(Mutex.tryLock());
     socket->write(DataToSend);
     Mutex.unlock();
 }
 
-short MyRobot::Crc16(QByteArray Adresse_tab , unsigned char Taille_max)
-{
-    unsigned int Crc = 0xFFFF;
-    unsigned int Polynome = 0xA001;
-    unsigned int CptOctet = 0;
-    unsigned int CptBit = 0;
-    unsigned int Parity= 0;
-     Crc = 0xFFFF;
-     Polynome = 0xA001;
-     for ( CptOctet= 0 ; CptOctet < Taille_max ; CptOctet++)
-         {
-         Crc ^= ( Adresse_tab [CptOctet]);
-         for ( CptBit = 0; CptBit <= 7 ; CptBit++)
-             {
-             Parity= Crc;
-             Crc >>= 1;
-             if (Parity%2 == true) Crc ^= Polynome;
-         }
-     }
-    return(Crc);
+quint16 MyRobot::crc16(QByteArray byteArray, int pos){
+    byteArray.data();
+    unsigned char *data = (unsigned char*)byteArray.constData();
+    quint16 crc=0xFFFF;
+    quint16 Polynome = 0xA001;
+    quint16 Parity=0;
+    for(;pos < byteArray.length()-2; pos++){
+        crc ^= *(data+pos);
+        for(unsigned int CptBit = 0; CptBit <=7; CptBit++){
+            Parity = crc;
+            crc >>= 1;
+            if(Parity%2 == true){
+                crc ^= Polynome;
+            }
+        }
+    }
+    return crc;
 }
 
-void MyRobot::Forward(){
-while(Mutex.tryLock());
+void MyRobot::Forward(int velocity){
+    while(Mutex.tryLock());
 
-    DataToSend.resize(9);
-    DataToSend[0]=0xFF;
-    DataToSend[1]=0x07;
-    DataToSend[2]=78;
-    DataToSend[3]=0x0;
-    DataToSend[4]=78;
+    DataToSend[2]=(unsigned char)velocity;
+    DataToSend[3]=0;
+    DataToSend[4]=(unsigned char)velocity;
     DataToSend[5]=0;
     DataToSend[6]=0x50;
 
-    short crc = Crc16(DataToSend,7);
+    quint16 crcRes = crc16(DataToSend,1);
 
-    DataToSend[7]= crc;
-    DataToSend[8]=(crc>>8);
-
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
     Mutex.unlock();
-    socket->write(DataToSend);
+}
 
+void MyRobot::Backward(int velocity){
+    while(Mutex.tryLock());
 
+    DataToSend[2]=(unsigned char)velocity;
+    DataToSend[3]=0;
+    DataToSend[4]=(unsigned char)velocity;
+    DataToSend[5]=0;
+    DataToSend[6]=0;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::Stop(){
+    Forward(40);
+}
+
+void MyRobot::Left(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(((unsigned char)velocity)/4);
+    DataToSend[3]=0;
+    DataToSend[4]=(unsigned char)velocity;
+    DataToSend[5]=0;
+    DataToSend[6]=0x50;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::Right(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(unsigned char)velocity;
+    DataToSend[3]=0;
+    DataToSend[4]=(((unsigned char)velocity)/4);
+    DataToSend[5]=0;
+    DataToSend[6]=0x50;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
 }

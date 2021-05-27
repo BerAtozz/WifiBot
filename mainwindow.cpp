@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-
 }
+
 
 
 void MainWindow::on_boutonConnexion_clicked()
@@ -23,8 +23,48 @@ void MainWindow::on_boutonConnexion_clicked()
     GroBot->doConnect();
 }
 
-void MainWindow::on_forwardButon_clicked()
+void MainWindow::on_velocity_valueChanged(int value)
 {
-    GroBot->Forward();
+    velocity = ui->velocity->value();
+}
+
+void MainWindow::on_forwardButon_released()
+{
+    GroBot->Stop();
+}
+
+void MainWindow::on_forwardButon_pressed()
+{
+    GroBot->Forward(velocity);
+}
+
+void MainWindow::on_backwardButton_pressed()
+{
+    GroBot->Backward(velocity);
+}
+
+void MainWindow::on_backwardButton_released()
+{
+    GroBot->Stop();
+}
+
+void MainWindow::on_leftButton_pressed()
+{
+    GroBot->Left(velocity);
+}
+
+void MainWindow::on_leftButton_released()
+{
+   GroBot->Stop();
+}
+
+void MainWindow::on_rightButton_pressed()
+{
+    GroBot->Right(velocity);
+}
+
+void MainWindow::on_rightButton_released()
+{
+    GroBot->Stop();
 }
 
