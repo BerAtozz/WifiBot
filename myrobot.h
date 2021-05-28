@@ -12,7 +12,7 @@ class MyRobot : public QObject {
     Q_OBJECT
 public:
     explicit MyRobot(QObject *parent = 0);
-    void doConnect();
+    bool doConnect();
     void disConnect();
     QByteArray DataToSend;
     QByteArray DataReceived;
@@ -37,6 +37,7 @@ public slots:
 private:
     QTcpSocket *socket;
     QTimer *TimerEnvoi;
+    int clockTimer;
 };
 
 #endif // MYROBOT_H

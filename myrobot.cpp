@@ -20,7 +20,7 @@ MyRobot::MyRobot(QObject *parent) : QObject(parent) {
 }
 
 
-void MyRobot::doConnect() {
+bool MyRobot::doConnect() {
     socket = new QTcpSocket(this); // socket creation
     connect(socket, SIGNAL(connected()),this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
@@ -32,9 +32,10 @@ void MyRobot::doConnect() {
     // we need to wait...
     if(!socket->waitForConnected(5000)) {
         qDebug() << "Error: " << socket->errorString();
-        return;
+        return false;
     }
     TimerEnvoi->start(75);
+    return true;
 
 }
 
@@ -45,6 +46,7 @@ void MyRobot::disConnect() {
 
 void MyRobot::connected() {
     qDebug() << "connected..."; // Hey server, tell me about you.
+
 }
 
 void MyRobot::disconnected() {

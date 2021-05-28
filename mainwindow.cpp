@@ -3,12 +3,19 @@
 #include <iostream>
 #include <QMessageBox>
 #include <myrobot.h>
+#include <Windows.h>
+#include <QtGui>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     GroBot = new MyRobot();
+
+
+    ui->lcdSpeed->setPalette(Qt::red);
+    connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
 }
 
 MainWindow::~MainWindow()
@@ -17,10 +24,14 @@ MainWindow::~MainWindow()
 }
 
 
-
 void MainWindow::on_boutonConnexion_clicked()
 {
-    GroBot->doConnect();
+    bool status;
+    status = GroBot->doConnect();
+    ui->forwardButon->setEnabled(status);
+    ui->backwardButton->setEnabled(status);
+    ui->leftButton->setEnabled(status);
+    ui->rightButton->setEnabled(status);
 }
 
 void MainWindow::on_velocity_valueChanged(int value)
@@ -67,4 +78,7 @@ void MainWindow::on_rightButton_released()
 {
     GroBot->Stop();
 }
+
+
+
 
