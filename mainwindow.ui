@@ -42,11 +42,8 @@
     <property name="text">
      <string>Forward</string>
     </property>
-    <property name="shortcut">
-     <string>Up</string>
-    </property>
     <property name="autoRepeat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoRepeatDelay">
      <number>0</number>
@@ -102,11 +99,8 @@
     <property name="text">
      <string>Backward</string>
     </property>
-    <property name="shortcut">
-     <string>Down</string>
-    </property>
     <property name="autoRepeat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoRepeatDelay">
      <number>100</number>
@@ -127,11 +121,8 @@
     <property name="text">
      <string>Left</string>
     </property>
-    <property name="shortcut">
-     <string>Left</string>
-    </property>
     <property name="autoRepeat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoRepeatDelay">
      <number>100</number>
@@ -152,11 +143,8 @@
     <property name="text">
      <string>Right</string>
     </property>
-    <property name="shortcut">
-     <string>Right</string>
-    </property>
     <property name="autoRepeat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoRepeatDelay">
      <number>100</number>

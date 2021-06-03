@@ -5,7 +5,9 @@
 #include <myrobot.h>
 #include <Windows.h>
 #include <QtGui>
-
+#include <QApplication>
+#include <QKeyEvent>
+#include "keypress.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,16 +17,17 @@ MainWindow::MainWindow(QWidget *parent)
     GroBot = new MyRobot();
     camera = new Camera();
 
-
     ui->lcdSpeed->setPalette(Qt::red);
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
+
+    KeyPress *keyPress = new KeyPress();
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::on_boutonConnexion_clicked()
 {
@@ -82,6 +85,48 @@ void MainWindow::on_rightButton_released()
 {
     GroBot->Stop();
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up)
+    {
+        GroBot->Forward(velocity);
+    }
+    if(event->key() == Qt::Key_Down)
+    {
+        GroBot->Backward(velocity);
+    }
+    if(event->key() == Qt::Key_Left)
+    {
+        GroBot->Left(velocity);
+    }
+    if(event->key() == Qt::Key_Right)
+    {
+        GroBot->Right(velocity);
+    }
+
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_Down)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_Left)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_Right)
+    {
+        GroBot->Stop();
+    }
+}
+
 
 
 

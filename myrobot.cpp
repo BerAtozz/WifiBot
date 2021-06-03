@@ -1,5 +1,3 @@
-// myrobot.cpp
-
 #include "myrobot.h"
 
 MyRobot::MyRobot(QObject *parent) : QObject(parent) {
@@ -91,19 +89,21 @@ quint16 MyRobot::crc16(QByteArray byteArray, int pos){
 }
 
 void MyRobot::Forward(int velocity){
-    while(Mutex.tryLock());
 
-    DataToSend[2]=(unsigned char)velocity;
-    DataToSend[3]=0;
-    DataToSend[4]=(unsigned char)velocity;
-    DataToSend[5]=0;
-    DataToSend[6]=0x50;
+        while(Mutex.tryLock());
 
-    quint16 crcRes = crc16(DataToSend,1);
+        DataToSend[2]=(unsigned char)velocity;
+        DataToSend[3]=0;
+        DataToSend[4]=(unsigned char)velocity;
+        DataToSend[5]=0;
+        DataToSend[6]=0x50;
 
-    DataToSend[7]= (unsigned char)crcRes;
-    DataToSend[8]= (unsigned char)(crcRes>>8);
-    Mutex.unlock();
+        quint16 crcRes = crc16(DataToSend,1);
+
+        DataToSend[7]= (unsigned char)crcRes;
+        DataToSend[8]= (unsigned char)(crcRes>>8);
+        Mutex.unlock();
+
 }
 
 void MyRobot::Backward(int velocity){

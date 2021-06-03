@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <myrobot.h>
 #include <camera.h>
+#include <QApplication>
+#include <QKeyEvent>
+#include <keyevent.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,7 +19,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void afficherMessage();
-    MyRobot *GroBot;
+
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 private slots:
     void on_boutonConnexion_clicked();
 
@@ -38,9 +43,13 @@ private slots:
 
     void on_rightButton_released();
 
+
+
 private:
     Ui::MainWindow *ui;
     int velocity;
+    MyRobot *GroBot;
     Camera *camera;
+
 };
 #endif // MAINWINDOW_H

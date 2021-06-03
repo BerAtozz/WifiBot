@@ -11,12 +11,14 @@ CONFIG += c++11
 
 SOURCES += \
     camera.cpp \
+    keypress.cpp \
     main.cpp \
     mainwindow.cpp \
     myrobot.cpp
 
 HEADERS += \
     camera.h \
+    keypress.h \
     mainwindow.h \
     myrobot.h
 
