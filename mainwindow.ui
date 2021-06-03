@@ -163,13 +163,77 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>290</x>
       <y>90</y>
       <width>411</width>
       <height>231</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="video"/>
+   </widget>
+   <widget class="QPushButton" name="leftCam">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>190</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>LeftCam</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rightCam">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>190</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RightCam</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="UpCam">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>50</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>UpCam</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="DownCam">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>330</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DownCam</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -8,7 +8,14 @@ class Camera
 {
 public:
     Camera();
-    void Camera::displayVideo(Ui::MainWindow *ui);
+    void displayVideo(Ui::MainWindow *ui);
+    void moveLeft();
+    void moveRight();
+    void moveUp();
+    void moveDown();
+private:
+    QWebEngineView *view;
+    QWebEngineView *url;
 };
 
 #endif // CAMERA_H

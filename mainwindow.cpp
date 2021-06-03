@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
 
     KeyPress *keyPress = new KeyPress();
-
 }
 
 MainWindow::~MainWindow()
@@ -37,6 +36,10 @@ void MainWindow::on_boutonConnexion_clicked()
     ui->backwardButton->setEnabled(status);
     ui->leftButton->setEnabled(status);
     ui->rightButton->setEnabled(status);
+    ui->DownCam->setEnabled(status);
+    ui->UpCam->setEnabled(status);
+    ui->leftCam->setEnabled(status);
+    ui->rightCam->setEnabled(status);
 
     camera->displayVideo(ui);
 }
@@ -128,6 +131,24 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 }
 
 
+void MainWindow::on_leftCam_pressed()
+{
+    camera->moveLeft();
+}
 
+void MainWindow::on_rightCam_pressed()
+{
+    camera->moveRight();
+}
+
+void MainWindow::on_UpCam_pressed()
+{
+    camera->moveUp();
+}
+
+void MainWindow::on_DownCam_pressed()
+{
+    camera->moveDown();
+}
 
 
