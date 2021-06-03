@@ -52,6 +52,9 @@ private slots:
     void on_UpCam_pressed();
     void on_DownCam_pressed();
 
+    void reloadDisplay(QByteArray retour);
+    void changeBattery(unsigned char bat);
+
 private:
     Ui::MainWindow *ui;
     int velocity;

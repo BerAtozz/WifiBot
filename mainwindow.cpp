@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->lcdSpeed->setPalette(Qt::red);
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
+    connect(this->GroBot, SIGNAL(updateUI(QByteArray)), this, SLOT(reloadDisplay(QByteArray)));
 
     KeyPress *keyPress = new KeyPress();
 }
@@ -150,5 +151,24 @@ void MainWindow::on_DownCam_pressed()
 {
     camera->moveDown();
 }
+
+void MainWindow::reloadDisplay(QByteArray retour){
+    changeBattery(retour[2]);
+}
+
+void MainWindow::changeBattery(unsigned char bat){
+    int bat_int = (int)bat;
+    bat_int=3;
+    if(bat_int > 124){
+        bat_int=124;
+    }
+    else if(bat_int < 0){
+        bat_int = 0;
+    }
+    bat_int=bat_int*100/124;
+    ui->batteryBar->setValue(bat_int);
+}
+
+
 
 
