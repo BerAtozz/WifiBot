@@ -6,12 +6,14 @@
 #include <Windows.h>
 #include <QtGui>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     GroBot = new MyRobot();
+    camera = new Camera();
 
 
     ui->lcdSpeed->setPalette(Qt::red);
@@ -32,6 +34,8 @@ void MainWindow::on_boutonConnexion_clicked()
     ui->backwardButton->setEnabled(status);
     ui->leftButton->setEnabled(status);
     ui->rightButton->setEnabled(status);
+
+    camera->displayVideo(ui);
 }
 
 void MainWindow::on_velocity_valueChanged(int value)

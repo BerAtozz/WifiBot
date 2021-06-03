@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <myrobot.h>
+#include <camera.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -40,5 +41,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     int velocity;
+    Camera *camera;
 };
 #endif // MAINWINDOW_H
