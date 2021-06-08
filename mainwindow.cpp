@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     GroBot = new MyRobot();
     camera = new Camera();
 
-    ui->lcdSpeed->setPalette(Qt::red);
+    ui->lcdSpeed->setPalette(Qt::darkRed);
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
     connect(this->GroBot, SIGNAL(updateUI(QByteArray)), this, SLOT(reloadDisplay(QByteArray)));
 
@@ -31,6 +31,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_boutonConnexion_clicked()
 {
+    camera->deleteVideo(ui);
+
     bool status;
     status = GroBot->doConnect();
     ui->forwardButon->setEnabled(status);
@@ -158,7 +160,7 @@ void MainWindow::reloadDisplay(QByteArray retour){
 
 void MainWindow::changeBattery(unsigned char bat){
     int bat_int = (int)bat;
-    bat_int=3;
+    bat_int-=3;
     if(bat_int > 124){
         bat_int=124;
     }

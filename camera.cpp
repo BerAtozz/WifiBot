@@ -14,6 +14,10 @@ void Camera::displayVideo(Ui::MainWindow *ui){
     view->show();
 }
 
+void Camera::deleteVideo(Ui::MainWindow *ui){
+    ui->video->removeWidget(view);
+}
+
 void Camera::moveLeft()
 {
     url = new QWebEngineView();

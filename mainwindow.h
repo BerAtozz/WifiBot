@@ -24,6 +24,8 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
+    void changeBattery(unsigned char bat);
+
 private slots:
     void on_boutonConnexion_clicked();
 
@@ -53,13 +55,16 @@ private slots:
     void on_DownCam_pressed();
 
     void reloadDisplay(QByteArray retour);
-    void changeBattery(unsigned char bat);
+
+
+
 
 private:
     Ui::MainWindow *ui;
     int velocity;
     MyRobot *GroBot;
     Camera *camera;
+
 
 };
 #endif // MAINWINDOW_H
