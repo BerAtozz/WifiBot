@@ -25,6 +25,7 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void changeBattery(unsigned char bat);
+    void changeIR(unsigned char IRfl, unsigned char IRbl);
 
 private slots:
     void on_boutonConnexion_clicked();
@@ -55,7 +56,6 @@ private slots:
     void on_DownCam_pressed();
 
     void reloadDisplay(QByteArray retour);
-
 
 
 

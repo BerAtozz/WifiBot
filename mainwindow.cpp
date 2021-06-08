@@ -94,19 +94,19 @@ void MainWindow::on_rightButton_released()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Up)
+    if(event->key() == Qt::Key_Z)
     {
         GroBot->Forward(velocity);
     }
-    if(event->key() == Qt::Key_Down)
+    if(event->key() == Qt::Key_S)
     {
         GroBot->Backward(velocity);
     }
-    if(event->key() == Qt::Key_Left)
+    if(event->key() == Qt::Key_Q)
     {
         GroBot->Left(velocity);
     }
-    if(event->key() == Qt::Key_Right)
+    if(event->key() == Qt::Key_D)
     {
         GroBot->Right(velocity);
     }
@@ -115,19 +115,19 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Up)
+    if(event->key() == Qt::Key_Z)
     {
         GroBot->Stop();
     }
-    if(event->key() == Qt::Key_Down)
+    if(event->key() == Qt::Key_S)
     {
         GroBot->Stop();
     }
-    if(event->key() == Qt::Key_Left)
+    if(event->key() == Qt::Key_Q)
     {
         GroBot->Stop();
     }
-    if(event->key() == Qt::Key_Right)
+    if(event->key() == Qt::Key_D)
     {
         GroBot->Stop();
     }
@@ -155,7 +155,8 @@ void MainWindow::on_DownCam_pressed()
 }
 
 void MainWindow::reloadDisplay(QByteArray retour){
-    changeBattery(retour[2]);
+    changeBattery(retour[2]);    
+    changeIR(retour[3],retour[4]);
 }
 
 void MainWindow::changeBattery(unsigned char bat){
@@ -169,6 +170,11 @@ void MainWindow::changeBattery(unsigned char bat){
     }
     bat_int=bat_int*100/124;
     ui->batteryBar->setValue(bat_int);
+}
+
+void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr){
+    ui->irFrontLeft->setValue((int)IRfl);
+    ui->irBackRight->setValue((int)IRbr);
 }
 
 
