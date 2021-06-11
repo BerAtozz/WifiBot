@@ -33,7 +33,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>110</x>
       <y>420</y>
       <width>91</width>
       <height>25</height>
@@ -90,7 +90,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>99</x>
+      <x>110</x>
       <y>500</y>
       <width>91</width>
       <height>25</height>
@@ -134,7 +134,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>210</x>
       <y>460</y>
       <width>80</width>
       <height>25</height>
@@ -311,6 +311,70 @@
     </property>
     <property name="value">
      <number>24</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="FLeft">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>FLeft</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="FRight">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>420</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>FRight</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BLeft">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BLeft</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BRight">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>500</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BRight</string>
     </property>
    </widget>
   </widget>

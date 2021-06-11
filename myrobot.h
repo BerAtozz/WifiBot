@@ -20,11 +20,18 @@ public:
     QMutex Mutex;
     short crcSoft(unsigned char Adresse_tab , unsigned char Taille_max);
     quint16 crc16(QByteArray byteArray, int pos);
+
     void Forward(int velocity);
-    void Backward(int velocity);
-    void Stop();
+    void Backward(int velocity);    
     void Left(int velocity);
     void Right(int velocity);
+
+    void FLeft(int velocity);
+    void FRight(int velocity);
+    void BLeft(int velocity);
+    void BRight(int velocity);
+
+    void Stop();
 
 signals:
     void updateUI(const QByteArray Data);

@@ -126,14 +126,78 @@ void MyRobot::Stop(){
     Forward(40);
 }
 
-void MyRobot::Left(int velocity){
+void MyRobot::FLeft(int velocity){
     while(Mutex.tryLock());
 
-    DataToSend[2]=(((unsigned char)velocity)/4);
+    DataToSend[2]=(((unsigned char)velocity)/2);
     DataToSend[3]=0;
     DataToSend[4]=(unsigned char)velocity;
     DataToSend[5]=0;
     DataToSend[6]=0x50;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::BLeft(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(((unsigned char)velocity)/2);
+    DataToSend[3]=0;
+    DataToSend[4]=(unsigned char)velocity;
+    DataToSend[5]=0;
+    DataToSend[6]=0;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::Left(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(0);
+    DataToSend[3]=0;
+    DataToSend[4]=(unsigned char)velocity;
+    DataToSend[5]=0;
+    DataToSend[6]=0x50;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::FRight(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(unsigned char)velocity;
+    DataToSend[3]=0;
+    DataToSend[4]=(((unsigned char)velocity)/2);
+    DataToSend[5]=0;
+    DataToSend[6]=0x50;
+
+    quint16 crcRes = crc16(DataToSend,1);
+
+    DataToSend[7]= (unsigned char)crcRes;
+    DataToSend[8]= (unsigned char)(crcRes>>8);
+    Mutex.unlock();
+}
+
+void MyRobot::BRight(int velocity){
+    while(Mutex.tryLock());
+
+    DataToSend[2]=(unsigned char)velocity;
+    DataToSend[3]=0;
+    DataToSend[4]=(((unsigned char)velocity)/2);
+    DataToSend[5]=0;
+    DataToSend[6]=0;
 
     quint16 crcRes = crc16(DataToSend,1);
 
@@ -147,7 +211,7 @@ void MyRobot::Right(int velocity){
 
     DataToSend[2]=(unsigned char)velocity;
     DataToSend[3]=0;
-    DataToSend[4]=(((unsigned char)velocity)/4);
+    DataToSend[4]=(0);
     DataToSend[5]=0;
     DataToSend[6]=0x50;
 

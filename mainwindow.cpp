@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
     connect(this->GroBot, SIGNAL(updateUI(QByteArray)), this, SLOT(reloadDisplay(QByteArray)));
 
-    KeyPress *keyPress = new KeyPress();
+    //KeyPress *keyPress = new KeyPress();
 }
 
 MainWindow::~MainWindow()
@@ -35,14 +35,21 @@ void MainWindow::on_boutonConnexion_clicked()
 
     bool status;
     status = GroBot->doConnect();
+
     ui->forwardButon->setEnabled(status);
     ui->backwardButton->setEnabled(status);
     ui->leftButton->setEnabled(status);
     ui->rightButton->setEnabled(status);
+
     ui->DownCam->setEnabled(status);
     ui->UpCam->setEnabled(status);
     ui->leftCam->setEnabled(status);
     ui->rightCam->setEnabled(status);
+
+    ui->BLeft->setEnabled(status);
+    ui->BRight->setEnabled(status);
+    ui->FLeft->setEnabled(status);
+    ui->FRight->setEnabled(status);
 
     camera->displayVideo(ui);
 }
@@ -52,45 +59,79 @@ void MainWindow::on_velocity_valueChanged(int value)
     velocity = ui->velocity->value();
 }
 
+
 void MainWindow::on_forwardButon_released()
 {
     GroBot->Stop();
 }
-
 void MainWindow::on_forwardButon_pressed()
 {
     GroBot->Forward(velocity);
 }
 
+
 void MainWindow::on_backwardButton_pressed()
 {
     GroBot->Backward(velocity);
 }
-
 void MainWindow::on_backwardButton_released()
 {
     GroBot->Stop();
 }
 
+
 void MainWindow::on_leftButton_pressed()
 {
     GroBot->Left(velocity);
 }
-
 void MainWindow::on_leftButton_released()
 {
    GroBot->Stop();
 }
 
+
 void MainWindow::on_rightButton_pressed()
 {
     GroBot->Right(velocity);
 }
-
 void MainWindow::on_rightButton_released()
 {
     GroBot->Stop();
 }
+
+
+void MainWindow::on_FLeft_pressed(){
+    GroBot->FLeft(velocity);
+}
+void MainWindow::on_FLeft_released(){
+    GroBot->Stop();
+}
+
+
+void MainWindow::on_FRight_pressed(){
+    GroBot->FRight(velocity);
+}
+void MainWindow::on_FRight_released(){
+    GroBot->Stop();
+}
+
+
+void MainWindow::on_BLeft_pressed(){
+    GroBot->BLeft(velocity);
+}
+void MainWindow::on_BLeft_released(){
+    GroBot->Stop();
+}
+
+
+void MainWindow::on_BRight_pressed(){
+    GroBot->BRight(velocity);
+}
+void MainWindow::on_BRight_released(){
+    GroBot->Stop();
+}
+
+
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -110,6 +151,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         GroBot->Right(velocity);
     }
+    if(event->key() == Qt::Key_A)
+    {
+        GroBot->FLeft(velocity);
+    }
+    if(event->key() == Qt::Key_E)
+    {
+        GroBot->FRight(velocity);
+    }
+    if(event->key() == Qt::Key_W)
+    {
+        GroBot->BLeft(velocity);
+    }
+    if(event->key() == Qt::Key_C)
+    {
+        GroBot->BRight(velocity);
+    }
 
 }
 
@@ -128,6 +185,22 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         GroBot->Stop();
     }
     if(event->key() == Qt::Key_D)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_A)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_E)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_W)
+    {
+        GroBot->Stop();
+    }
+    if(event->key() == Qt::Key_C)
     {
         GroBot->Stop();
     }
@@ -156,7 +229,7 @@ void MainWindow::on_DownCam_pressed()
 
 void MainWindow::reloadDisplay(QByteArray retour){
     changeBattery(retour[2]);    
-    changeIR(retour[3],retour[4]);
+    changeIR(retour[3],retour[4],retour[11],retour[12]);
 }
 
 void MainWindow::changeBattery(unsigned char bat){
@@ -172,9 +245,11 @@ void MainWindow::changeBattery(unsigned char bat){
     ui->batteryBar->setValue(bat_int);
 }
 
-void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr){
+void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr,unsigned char IRfr, unsigned char IRbl){
     ui->irFrontLeft->setValue((int)IRfl);
     ui->irBackRight->setValue((int)IRbr);
+    ui->irFrontRight->setValue((int) IRfr);
+    ui->irBackLeft->setValue((int)IRbl);
 }
 
 

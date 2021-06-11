@@ -25,7 +25,7 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void changeBattery(unsigned char bat);
-    void changeIR(unsigned char IRfl, unsigned char IRbl);
+    void changeIR(unsigned char IRfl, unsigned char IRbr, unsigned char IRfr, unsigned char IRbl);
 
 private slots:
     void on_boutonConnexion_clicked();
@@ -33,22 +33,28 @@ private slots:
     void on_velocity_valueChanged(int value);
 
     void on_forwardButon_released();
-
     void on_forwardButon_pressed();
 
     void on_backwardButton_pressed();
-
     void on_backwardButton_released();
 
     void on_leftButton_pressed();
-
     void on_rightButton_pressed();
 
     void on_leftButton_released();
-
     void on_rightButton_released();
 
+    void on_FLeft_pressed();
+    void on_FLeft_released();
 
+    void on_FRight_pressed();
+    void on_FRight_released();
+
+    void on_BRight_pressed();
+    void on_BRight_released();
+
+    void on_BLeft_pressed();
+    void on_BLeft_released();
 
     void on_leftCam_pressed();
     void on_rightCam_pressed();
