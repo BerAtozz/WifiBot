@@ -29,6 +29,7 @@ public:
 
 private slots:
     void on_boutonConnexion_clicked();
+    void on_deconnexion_clicked();
 
     void on_velocity_valueChanged(int value);
 

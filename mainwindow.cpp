@@ -16,8 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     GroBot = new MyRobot();
     camera = new Camera();
+    camera->initCameraView(ui);
 
     ui->lcdSpeed->setPalette(Qt::darkRed);
+
     connect( ui->velocity, SIGNAL(valueChanged(int)), ui->lcdSpeed, SLOT(display(int)) );
     connect(this->GroBot, SIGNAL(updateUI(QByteArray)), this, SLOT(reloadDisplay(QByteArray)));
 
@@ -28,7 +30,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+/*
+ * Méthode apellée à la l'appui sur le bouton connexion
+ * Affiche la caméra et rend les boutons clickable
+ */
 void MainWindow::on_boutonConnexion_clicked()
 {
     camera->deleteVideo(ui);
@@ -54,12 +59,46 @@ void MainWindow::on_boutonConnexion_clicked()
     camera->displayVideo(ui);
 }
 
+/*
+ * Méthode apellée lors de l'appui sur le bouton Déconnexion
+ * Supprime la caméra et rend et rend les boutons non clickable
+ */
+void MainWindow::on_deconnexion_clicked(){
+    camera->deleteVideo(ui);
+    camera->initCameraView(ui);
+
+    bool status;
+    GroBot->disConnect();
+    status = false;
+
+    ui->forwardButon->setEnabled(status);
+    ui->backwardButton->setEnabled(status);
+    ui->leftButton->setEnabled(status);
+    ui->rightButton->setEnabled(status);
+
+    ui->DownCam->setEnabled(status);
+    ui->UpCam->setEnabled(status);
+    ui->leftCam->setEnabled(status);
+    ui->rightCam->setEnabled(status);
+
+    ui->BLeft->setEnabled(status);
+    ui->BRight->setEnabled(status);
+    ui->FLeft->setEnabled(status);
+    ui->FRight->setEnabled(status);
+
+}
+
+/*
+ * Récupère et stocke la valeur de la vitesse max
+ */
 void MainWindow::on_velocity_valueChanged(int value)
 {
     velocity = ui->velocity->value();
 }
 
-
+/*
+ * Méthodes liées au déplacement du robot
+ */
 void MainWindow::on_forwardButon_released()
 {
     GroBot->Stop();
@@ -132,7 +171,9 @@ void MainWindow::on_BRight_released(){
 }
 
 
-
+/*
+ * Méthodes qui relève les appuis clavier pour le déplacement du robot
+ */
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Z)
@@ -206,7 +247,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-
+/*
+ * Méthodes liées au déplcement de la caméra
+ */
 void MainWindow::on_leftCam_pressed()
 {
     camera->moveLeft();
@@ -227,11 +270,17 @@ void MainWindow::on_DownCam_pressed()
     camera->moveDown();
 }
 
+/*
+ * Méthode qui récupère les données de retour
+ */
 void MainWindow::reloadDisplay(QByteArray retour){
     changeBattery(retour[2]);    
     changeIR(retour[3],retour[4],retour[11],retour[12]);
 }
 
+/*
+ * Affiche le niveau de batterie sur l'UI
+ */
 void MainWindow::changeBattery(unsigned char bat){
     int bat_int = (int)bat;
     bat_int-=3;
@@ -245,6 +294,9 @@ void MainWindow::changeBattery(unsigned char bat){
     ui->batteryBar->setValue(bat_int);
 }
 
+/*
+ * Affiche les niveau des capteurs IR sur l'UI
+ */
 void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr,unsigned char IRfr, unsigned char IRbl){
     ui->irFrontLeft->setValue((int)IRfl);
     ui->irBackRight->setValue((int)IRbr);

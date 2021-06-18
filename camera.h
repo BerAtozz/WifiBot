@@ -8,6 +8,7 @@ class Camera
 {
 public:
     Camera();
+    void initCameraView(Ui::MainWindow *ui);
     void displayVideo(Ui::MainWindow *ui);
     void deleteVideo(Ui::MainWindow *ui);
     void moveLeft();
