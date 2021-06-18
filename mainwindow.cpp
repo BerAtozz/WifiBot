@@ -311,6 +311,9 @@ void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr,unsigned char I
     ui->irBackLeft->setValue((int)IRbl);
 }
 
+/*
+ * Affiche les vitesses gauche et droite
+ */
 void MainWindow::displayRealSpeed(int leftSpeed, int rightSpeed){
     ui->speedLeft->setValue(leftSpeed);
     ui->speedRight->setValue(rightSpeed);

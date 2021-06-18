@@ -69,6 +69,9 @@ void MyRobot::MyTimerSlot() {
     Mutex.unlock();
 }
 
+/*
+ * Méthode de calcul du CRC
+ */
 quint16 MyRobot::crc16(QByteArray byteArray, int pos){
     byteArray.data();
     unsigned char *data = (unsigned char*)byteArray.constData();
