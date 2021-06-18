@@ -55,6 +55,7 @@ void MainWindow::on_boutonConnexion_clicked()
     ui->BRight->setEnabled(status);
     ui->FLeft->setEnabled(status);
     ui->FRight->setEnabled(status);
+    ui->boutonConnexion->setEnabled(false);
 
     camera->displayVideo(ui);
 }
@@ -85,6 +86,7 @@ void MainWindow::on_deconnexion_clicked(){
     ui->BRight->setEnabled(status);
     ui->FLeft->setEnabled(status);
     ui->FRight->setEnabled(status);
+    ui->boutonConnexion->setEnabled(true);
 
 }
 
@@ -276,6 +278,11 @@ void MainWindow::on_DownCam_pressed()
 void MainWindow::reloadDisplay(QByteArray retour){
     changeBattery(retour[2]);    
     changeIR(retour[3],retour[4],retour[11],retour[12]);
+
+    int speedLeft = (int)(retour[1] << 8 + retour[0]);
+    int speedRight = (int)(retour[10] << 8 + retour[9]);
+
+    displayRealSpeed(speedLeft, speedRight);
 }
 
 /*
@@ -302,6 +309,11 @@ void MainWindow::changeIR(unsigned char IRfl, unsigned char IRbr,unsigned char I
     ui->irBackRight->setValue((int)IRbr);
     ui->irFrontRight->setValue((int) IRfr);
     ui->irBackLeft->setValue((int)IRbl);
+}
+
+void MainWindow::displayRealSpeed(int leftSpeed, int rightSpeed){
+    ui->speedLeft->setValue(leftSpeed);
+    ui->speedRight->setValue(rightSpeed);
 }
 
 

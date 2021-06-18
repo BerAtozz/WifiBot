@@ -26,6 +26,7 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
     void changeBattery(unsigned char bat);
     void changeIR(unsigned char IRfl, unsigned char IRbr, unsigned char IRfr, unsigned char IRbl);
+    void displayRealSpeed(int leftSpeed, int rightSpeed);
 
 private slots:
     void on_boutonConnexion_clicked();
